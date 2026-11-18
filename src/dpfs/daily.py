@@ -1,6 +1,7 @@
 """Daily job: refresh data, retrain when the model is older than a month, forecast tomorrow, score yesterday.
 
-    python -m dpfs.daily                 # run by the GitHub Actions schedule every evening (UTC)
+    python -m dpfs.daily                 # run by the GitHub Actions schedule every evening (UTC); a run delayed
+                                         # past midnight Berlin forecasts the day it was meant for
     python -m dpfs.daily --day 2026-10-29 --retrain
 
 Writes forecasts/<day>.csv (24 hours x 3 quantiles), updates models/latest when retrained and appends
@@ -87,16 +88,36 @@ def monitor(inp: dict, day: pd.Timestamp, model_dir: Path, perf: pd.DataFrame) -
     return drift.report(inp, window, recent, perf, backtest_mae())
 
 
+LATE_RUN_UNTIL_HOUR = 8  # a scheduled evening run delayed past midnight (Berlin) still forecasts the day it was meant for
+
+
+def target_day(now: pd.Timestamp, folder: Path) -> pd.Timestamp:
+    """Delivery day of a scheduled run: tomorrow, or today when the evening run was delayed past midnight.
+
+    GitHub Actions often starts scheduled jobs hours late. A run at 02:00 Berlin belongs to the previous evening,
+    and the model only uses prices up to the day before the delivery day, so it gets the same inputs as on time."""
+    today = now.normalize().tz_localize(None)
+    if now.hour < LATE_RUN_UNTIL_HOUR and not (folder / f"{today.date()}.csv").exists():
+        return today
+    return today + pd.Timedelta(days=1)
+
+
 def main(argv: list[str] | None = None) -> dict:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--day", help="delivery day to forecast (default: tomorrow, Europe/Berlin)")
     ap.add_argument("--retrain", action="store_true")
     args = ap.parse_args(argv)
-    today = pd.Timestamp.now(tz="Europe/Berlin").normalize().tz_localize(None)
-    day = pd.Timestamp(args.day) if args.day else today + pd.Timedelta(days=1)
-    inp = load_inputs((day - pd.Timedelta(days=WINDOW + 10)).date().isoformat(), day.date().isoformat(), DATA)
+    now = pd.Timestamp.now(tz="Europe/Berlin")
     folder = ROOT / "forecasts"
     folder.mkdir(parents=True, exist_ok=True)
+    if args.day:
+        day = pd.Timestamp(args.day)
+    else:
+        day = target_day(now, folder)
+        if (folder / f"{day.date()}.csv").exists() and not args.retrain:
+            print(json.dumps({"day": str(day.date()), "skipped": "forecast already written"}))
+            return {"day": str(day.date()), "skipped": True}
+    inp = load_inputs((day - pd.Timedelta(days=WINDOW + 10)).date().isoformat(), day.date().isoformat(), DATA)
     if inp["load"].loc[day].isna().any():
         raise SystemExit(f"TSO forecasts for {day.date()} not published yet")
     quality = checks.check_inputs(inp, day)

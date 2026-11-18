@@ -3,6 +3,7 @@ name: daily forecast
 on:
   schedule:
     - cron: "30 19 * * *"   # after the TSO day-ahead forecasts for tomorrow are on SMARD
+    - cron: "15 21 * * *"   # second try; GitHub often starts schedules hours late, the job skips a day already done
   workflow_dispatch:
 
 permissions:
