@@ -8,7 +8,7 @@ Raw files go to data/raw/fuels/ and are not committed. Conversion: 1 MWh = 3.412
 The EEX archive used here ends in 2025 and the Pink Sheet is published with a lag of about a
 month; for later days the last published value is carried forward (see features.build_inputs).
 
-Adapted from github.com/michaelserikov/de-power-market-ppa (same author).
+Adapted from github.com/serikov-power-markets/de-power-market-ppa (same author).
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ EEX_CURRENT_URL = ("https://public.eex-group.com/eex/eua-auction-report/"
 
 MMBTU_PER_MWH = 3.412
 
-_HEADERS = {"User-Agent": "de-price-forecast-service (research; github.com/michaelserikov/de-price-forecast-service)"}
+_HEADERS = {"User-Agent": "de-price-forecast-service (research; github.com/serikov-power-markets/de-price-forecast-service)"}
 
 
 def _cached(url: str, path: Path, max_age_days: float | None = None) -> bytes:

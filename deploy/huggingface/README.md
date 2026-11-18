@@ -20,6 +20,6 @@ Endpoints:
 - `/monitoring` latest data checks, drift report and live accuracy of the daily job
 - `/docs` interactive API documentation
 
-Code, backtest and method: https://github.com/michaelserikov/de-price-forecast-service
+Code, backtest and method: https://github.com/serikov-power-markets/de-price-forecast-service
 
 Not investment advice; a research and engineering demonstration.

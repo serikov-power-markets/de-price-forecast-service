@@ -34,7 +34,7 @@ a{color:var(--accent)}
 <body>
 <main>
 <h1>German day-ahead power price forecast</h1>
-<p class="sub">Hourly 10%, 50% and 90% quantile forecasts of DE-LU day-ahead prices from an ensemble of PyTorch networks (MLP and LSTM), produced every evening by a scheduled job on public SMARD and fuel price data. Research and engineering demonstration, not investment advice. Code and method: <a href="https://github.com/michaelserikov/de-price-forecast-service">github.com/michaelserikov/de-price-forecast-service</a></p>
+<p class="sub">Hourly 10%, 50% and 90% quantile forecasts of DE-LU day-ahead prices from an ensemble of PyTorch networks (MLP and LSTM), produced every evening by a scheduled job on public SMARD and fuel price data. Research and engineering demonstration, not investment advice. Code and method: <a href="https://github.com/serikov-power-markets/de-price-forecast-service">github.com/serikov-power-markets/de-price-forecast-service</a></p>
 
 <div class="kpis">
   <div class="kpi"><span>Delivery day</span><b id="k-day">…</b></div>
@@ -63,7 +63,7 @@ a{color:var(--accent)}
 </main>
 
 <script>
-const RAW = "https://raw.githubusercontent.com/michaelserikov/de-price-forecast-service/main/";
+const RAW = "https://raw.githubusercontent.com/serikov-power-markets/de-price-forecast-service/main/";
 const NAMES = {naive:"Naive (yesterday; last week for Mon, Sat, Sun)",mlp:"MLP",lstm:"LSTM",mlp_lstm_avg:"MLP and LSTM ensemble (served)",lear_gbm:"LEAR plus gradient boosting",lear_gbm_mlp_lstm:"All four averaged"};
 const fmt = (x,d=1) => Number(x).toFixed(d);
 function csv(t){const [h,...r]=t.trim().split(/\r?\n/);const k=h.split(",");return r.map(l=>Object.fromEntries(l.split(",").map((v,i)=>[k[i],v])));}

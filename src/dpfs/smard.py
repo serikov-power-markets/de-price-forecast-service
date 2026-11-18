@@ -6,7 +6,7 @@ SMARD publishes each series as weekly JSON chunks:
 Timestamps are milliseconds since the epoch (UTC); prices are EUR/MWh, load and generation MWh per
 hour. Data licence: CC BY 4.0, Bundesnetzagentur | SMARD.de.
 
-Adapted from github.com/michaelserikov/de-power-market-ppa (same author).
+Adapted from github.com/serikov-power-markets/de-power-market-ppa (same author).
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ SERIES = {
 }
 
 _session = requests.Session()
-_session.headers["User-Agent"] = "de-price-forecast-service (research; github.com/michaelserikov/de-price-forecast-service)"
+_session.headers["User-Agent"] = "de-price-forecast-service (research; github.com/serikov-power-markets/de-price-forecast-service)"
 
 
 def _get_json(url: str, retries: int = 4) -> dict:

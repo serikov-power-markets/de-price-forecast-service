@@ -32,7 +32,7 @@ MODEL_DIR = Path(os.environ.get("DPFS_MODEL_DIR", ROOT / "models" / "latest"))
 FORECAST_DIR = Path(os.environ.get("DPFS_FORECAST_DIR", ROOT / "forecasts"))
 HISTORY_DAYS = 10  # inputs need prices of d-1 to d-7
 TZ = "Europe/Berlin"
-REPO = "https://github.com/michaelserikov/de-price-forecast-service"
+REPO = "https://github.com/serikov-power-markets/de-price-forecast-service"
 
 DESCRIPTION = f"""
 Hourly forecasts of German (DE-LU) day-ahead power prices for one delivery day: the median and the 10% and

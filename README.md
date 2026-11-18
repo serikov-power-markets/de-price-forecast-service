@@ -10,7 +10,7 @@ live accuracy and the backtest, read from the files the daily job commits here).
 requests it sleeps, and the first call takes about a minute).
 
 The forecasting study behind it, with LEAR and gradient boosting benchmarks, is
-[de-power-market-ppa](https://github.com/michaelserikov/de-power-market-ppa) v0.5-v0.6. This
+[de-power-market-ppa](https://github.com/serikov-power-markets/de-power-market-ppa) v0.5-v0.6. This
 repository adds neural networks, a walk-forward comparison with those benchmarks on identical
 inputs, and the engineering around a model that runs every day.
 
