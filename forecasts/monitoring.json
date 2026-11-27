@@ -1,7 +1,7 @@
 {
-  "day": "2026-11-26",
+  "day": "2026-11-27",
   "checks": {
-    "day": "2026-11-26",
+    "day": "2026-11-27",
     "ok": true,
     "errors": [],
     "warnings": []
@@ -9,54 +9,52 @@
   "drift": {
     "features": {
       "price": {
-        "psi": 3.0019,
+        "psi": 2.8041,
         "status": "significant"
       },
       "load": {
-        "psi": 0.0632,
+        "psi": 0.0796,
         "status": "stable"
       },
       "res": {
-        "psi": 0.161,
+        "psi": 0.1208,
         "status": "moderate"
       },
       "residual_load": {
-        "psi": 0.2418,
+        "psi": 0.1989,
         "status": "moderate"
       },
       "eua": {
-        "recent_mean": 87.11,
+        "recent_mean": 86.91,
         "train_p05": 64.02,
         "train_p95": 87.0,
-        "status": "significant"
+        "status": "stable"
       },
       "gas": {
-        "recent_mean": 85.58,
+        "recent_mean": 85.99,
         "train_p05": 30.75,
         "train_p95": 75.33,
         "status": "significant"
       }
     },
     "live": {
-      "days": 11,
-      "live_mae": 42.56,
+      "days": 12,
+      "live_mae": 41.183,
       "backtest_mae": 13.1908,
-      "ratio": 3.226,
+      "ratio": 3.122,
       "alarm": true
     },
     "retrain": true,
     "reasons": [
       "gas",
-      "eua",
       "live accuracy"
     ]
   },
   "retrained": true,
   "reasons": [
     "gas",
-    "eua",
     "live accuracy"
   ],
-  "scored_days": 11,
-  "live_mae_all": 42.560037878787874
+  "scored_days": 12,
+  "live_mae_all": 41.18260416666666
 }
